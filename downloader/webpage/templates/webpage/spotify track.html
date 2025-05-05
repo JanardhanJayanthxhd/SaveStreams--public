@@ -1,0 +1,52 @@
+{% extends 'webpage/base.html' %}
+
+{% block title %}SaveSteamz - Spotify single{% endblock %}
+
+{% block content %}
+    <h1>Spotify Track</h1>
+
+    <div class="d-flex justify-content-start mb-3">
+        <div class="card bg-black text-light" style="width: 20rem;">
+            <img src="{{ track.cover_url }}" class="card-img-top" alt="track / album image">
+            <div class="card-body">
+                <p class="card-text">
+                    <a class="text-success" target="_blank" href="{{ track.spotify_link }}"><strong>{{ track.name }}</strong></a>
+                    & by {{ track.artists }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mt-3">Track:</h4>
+    <form id="filename_form" action="{% url 'spotify track' %}" method="post" >
+        {% csrf_token %}
+        <input type="text" class="form-control bg-transparent text-light border-0 px-0" id="filenameinput" value="{{ track.name }} - {{ track.artists }}" aria-describedby="fnamehelp" name="filenameinput" readonly>
+
+        <label>Choose song quality (kbps):</label>
+        <div class="py-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="160">
+                <label class="form-check-label" for="inlineRadio1">160</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="192" checked>
+                <label class="form-check-label" for="inlineRadio2">192</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="256">
+                <label class="form-check-label" for="inlineRadio3">256</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="320">
+                <label class="form-check-label" for="inlineRadio4">320</label>
+            </div>
+            <div id="emailHelp" class="form-text text-light"><strong>note:</strong> high quality takes more time to download)</div>
+        </div>
+
+        <input type="hidden" class="visually-hidden" name="track_id_input" value="{{ track.track_id }}">
+        <button type="submit" class="btn btn-success mt-3">Download audio</button>
+    </form>
+
+{% endblock %}
+
+

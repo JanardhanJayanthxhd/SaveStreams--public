@@ -1,0 +1,49 @@
+{% extends 'webpage/base.html' %}
+
+{% block title %}SaveSteamz - Youtube{% endblock %}
+
+{% block content %}
+    <h1>Youtube audio</h1>
+
+
+    <div class="d-flex justify-content-start">
+        <div class="card bg-black text-light" style="width: 30rem;">
+            <img src="{{ thumbnail }}" class="card-img-top" alt="youtube thumbnail image">
+            <div class="card-body">
+                <p class="card-text">
+                    <a class="text-danger" href="{{ yt_link }}" target="_blank">{{ title }}</a> ( Duration: {{ duration }} )
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <h4 class="mt-3">Youtube title:</h4>
+    <form action="{% url 'youtube' %}" method="post" >
+        {% csrf_token %}
+        <input type="text" class="form-control bg-transparent text-light border-0 px-0" id="filenameinput" value="{{ title }}" name="filename_input" readonly>
+        <label>Choose song quality (kbps):</label>
+        <div class="py-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="160">
+                <label class="form-check-label" for="inlineRadio1">160</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="192" checked>
+                <label class="form-check-label" for="inlineRadio2">192</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="256">
+                <label class="form-check-label" for="inlineRadio3">256</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="320">
+                <label class="form-check-label" for="inlineRadio4">320</label>
+            </div>
+            <div id="emailHelp" class="form-text text-light">(<strong>note:</strong> high quality takes more time to download)</div>
+        </div>
+        <button type="submit" class="btn btn-danger mt-3">Download audio</button>
+   
+        <input type="hidden" value="{{ yt_link }}" name="youtubelink_input">
+    </form>
+{% endblock %}

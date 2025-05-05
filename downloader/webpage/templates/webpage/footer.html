@@ -1,0 +1,19 @@
+<footer class="mt-3 z-1">
+    <nav class="py-0 navbar sticky-bottom bg-body-tertiary text-center" data-bs-theme="dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mx-auto">
+        <a class="navbar-brand small mx-auto" href="{% url 'home' %}">SaveSteam<spam class="text-primary-emphasis">z</spam>
+          - </a><time id="year"></time>
+      </span>
+
+    </div>
+  </nav>
+</footer>
+{% block scripts %}
+<script>
+  const year = document.getElementById('year')
+  const currentYear = new Date().getFullYear()
+  year.setAttribute("datetime", currentYear)
+  year.textContent = currentYear
+</script>
+{% endblock %}
