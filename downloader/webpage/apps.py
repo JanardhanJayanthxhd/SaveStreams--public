@@ -5,8 +5,7 @@ import os
 from shutil import rmtree
 
 
-CLEAR_DB_INTERVAL_MINS = 15
-CLEAR_KEYS_INTERVAL_SECS = 30
+CLEAR_DB_INTERVAL_MINS = 2 * 60
 
 class WebpageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -23,7 +22,7 @@ class WebpageConfig(AppConfig):
             misfire_grace_time=30
         )
         scheduler.add_job(
-            self.clear_expired_keys, 'interval', seconds=CLEAR_KEYS_INTERVAL_SECS, 
+            self.clear_expired_keys, 'cron', minute=0, hour=0,     # Runs midnight
             misfire_grace_time=30
         )
         scheduler.start()
