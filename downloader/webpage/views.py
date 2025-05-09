@@ -10,7 +10,7 @@ from .models import VideoLog
 from webpage.utility import (
     fix_filename, get_unique_directory_path, check_db,  SEARCH_OPTS, detect_link_type, parse_link,
     calculate_duration, download_song, download_songs, get_filename, get_spotify_token, get_zip_buffer,
-    get_playlist_tracks, get_playlist_info, get_album_info, get_track_info, get_album_tracks,
+    get_playlist_tracks, get_playlist_info, get_album_info, get_track_info, get_album_tracks, get_youtube_url,
 )
 
 
@@ -192,7 +192,7 @@ def spotify_track(request):
 
         song_to_download, filepath = download_song(
             song_name=file_name,
-            yt_url=None,
+            yt_url=get_youtube_url(file_name),
             quality=quality_option,
             file_meta=f'sp_track__{track_id}'
         )
