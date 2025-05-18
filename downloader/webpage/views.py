@@ -42,8 +42,13 @@ def youtube(request):
     """Youtube audio page"""
     link = request.session.get('link', '')
 
-    with yt_dlp.YoutubeDL(SEARCH_OPTS) as ydl:
-        link_info =ydl.extract_info(link, download=False)
+    try:
+        with yt_dlp.YoutubeDL(SEARCH_OPTS) as ydl:
+            link_info = ydl.extract_info(link, download=False)
+    except Exception as e:
+        print(f'Error: {e}')
+        messages.info(request, 'Unable to download this song')
+        return redirect('home')
 
     if request.method == 'POST':
         filename_input = request.POST['filename_input']
