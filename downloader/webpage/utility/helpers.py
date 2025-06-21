@@ -121,11 +121,11 @@ def get_spotify_token(add_new=False):
     if len(existing_tokens) == 0:
         result = get_new_spotify_token()
     else:
-        recent_token = existing_tokens[-1]
+        recent_token = existing_tokens.last()
         if check_expiration(recent_token.expires_at):
             result = get_new_spotify_token()
         else:
-            result = recent_token.api_key
+            result = recent_token.api_token
 
     if not add_new:
         print(f'returnd a sp token {result}')
@@ -135,7 +135,7 @@ def get_spotify_token(add_new=False):
 
 def check_expiration(expiration_time: datetime.time) -> bool:
     """Checks expiration time for existing(most recent) spotify token"""
-    current_time = datetime.now().time()
+    current_time = datetime.now()
     print(f'Current time: {current_time}')
     print(f'Received time: {expiration_time}')
     if expiration_time < current_time:
